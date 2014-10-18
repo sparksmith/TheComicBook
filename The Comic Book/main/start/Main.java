@@ -4,7 +4,7 @@
 package start;
 
 /**
- * @author sparksmith
+ * @author Ivaylo Ivanchev
  *
  */
 public class Main {
