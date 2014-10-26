@@ -4,19 +4,13 @@
 package metadataExtractor;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
-import com.github.junrar.Archive;
-import com.github.junrar.exception.RarException;
-import com.github.junrar.rarfile.FileHeader;
 
 import types.ComicBook;
+
+import com.github.junrar.exception.RarException;
+
 import exceptions.fileNotFound;
 
 /**
@@ -43,18 +37,19 @@ abstract public class LibraryPopulatorService {
 	 *             the file can't be un-archived
 	 */
 	private static ComicBook fromFile(final File file) throws fileNotFound, IOException, RarException {
+		ArchiveSpecificFunctionality opener = new ArchiveSpecificFunctionality();
 		ComicBook result = null;
 		if (file.exists()) {
 			result = new ComicBook(file);
 			switch (result.getOriginalArchiving()) {
 			// ZIP
 			case ZIP:
-				result = openZip(result);
+				result = opener.openZip(result);
 				//TODO: extract more metadata information if there is a metadata.info file
 				break;
 			// RAR -> is a bit special because it is not in the JDK
 			case RAR:
-				result = openRar(result);
+				result = opener.openRar(result);
 				//TODO: extract more metadata information if there is a metadata.info file
 				break;
 			case TAR:
@@ -76,59 +71,6 @@ abstract public class LibraryPopulatorService {
 		} else {
 			throw new fileNotFound("Comic book does not exist");
 		}
-		return result;
-	}
-
-	/**
-	 * Extract information regarding the CBZ format
-	 * 
-	 * @param result
-	 *            contains some of the information regarding the metadata
-	 *            already
-	 * @return a populated with information Comic Book
-	 * @throws IOException
-	 */
-	private static ComicBook openZip(ComicBook result) throws IOException {
-		int numberOfPages = 0;
-
-		ZipFile comic = new ZipFile(result.getFileSystempath());
-		final Enumeration<? extends ZipEntry> entries = comic.entries();
-		while (entries.hasMoreElements()) {
-			final ZipEntry entry = entries.nextElement();
-			if (entry.getName().contains(".jpg")) {
-				numberOfPages++;
-			}
-		}
-		result.setNumberOfPages(numberOfPages);
-		comic.close();
-		return result;
-	}
-
-	/**
-	 * Extract information regarding the CBR format
-	 * 
-	 * @param result
-	 *            path information about the file
-	 * @return more information regarding the file including the page numbers
-	 *         and size
-	 * @throws RarException
-	 * @throws IOException
-	 */
-	private static ComicBook openRar(ComicBook result) throws RarException, IOException {
-		int numberOfPages = 0;
-		Archive rar = new Archive(new File(result.getFileSystempath()));
-		FileHeader fileHeader = rar.nextFileHeader();
-		while (fileHeader != null) {
-			if (!fileHeader.isDirectory()) {
-				//name = fileHeader.getFileNameString();
-				if (fileHeader.getFileNameString().contains(".jpg")) {
-					numberOfPages++;
-				}
-			}
-			fileHeader = rar.nextFileHeader();
-		}
-		result.setNumberOfPages(numberOfPages);
-		rar.close();
 		return result;
 	}
 
