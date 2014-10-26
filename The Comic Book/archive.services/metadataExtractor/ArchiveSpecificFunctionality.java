@@ -21,7 +21,7 @@ import com.github.junrar.rarfile.FileHeader;
  * @date 26 Oct 2014
  *
  */
-public class ArchiveSpecificFunctionality {
+public class ArchiveSpecificFunctionality implements ArchiveOpener{
 	/**
 	 * Extract information regarding the CBZ format
 	 * 
@@ -73,5 +73,23 @@ public class ArchiveSpecificFunctionality {
 		result.setNumberOfPages(numberOfPages);
 		rar.close();
 		return result;
+	}
+
+	@Override
+	public ComicBook open7z(ComicBook result) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ComicBook openTar(ComicBook result) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ComicBook openAce(ComicBook result) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
