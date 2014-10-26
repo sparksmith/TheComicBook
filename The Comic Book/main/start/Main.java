@@ -4,11 +4,11 @@
 package start;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 
 import types.ComicBook;
-import exceptions.fileNotFound;
 import zipSolution.OpenZip;
+import exceptions.fileNotFound;
 
 /**
  * @author Ivaylo Ivanchev
@@ -23,10 +23,11 @@ class Main {
 		OpenZip archiver = new OpenZip();
 		try {
 			ComicBook test = archiver.fromFile(new File("/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/"
-					+ "The Comic Book/testFiles/testComic1.cbr"));
-			System.out.println("The file: " + test.getFileName() + "\n" + "With size: " + test.getFileSize() + "\n" + "With filetype: "
-					+ test.getFileType() + "\n" + "With original archiving method: " + test.getOriginalArchiving());
-		} catch (fileNotFound e) {
+					+ "The Comic Book/testFiles/testComic2.cbz"));
+			System.out.println("The file: " + test.getFileName() + "\n" + "With size: " + test.getFileSize() + "MB\n" + "With filetype: "
+					+ test.getFileType() + "\n" + "With original archiving method: " + test.getOriginalArchiving() + "\n"
+					+ "With number of pages: " + test.getNumberOfPages());
+		} catch (fileNotFound | IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -4,24 +4,41 @@
 package zipSolution;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
-import exceptions.fileNotFound;
 import types.ComicBook;
-import types.ComicBook.ArchiveTypes;
+import exceptions.fileNotFound;
 
 /**
  * @author Ivaylo Ivanchev
  *
  */
 public class OpenZip {
-	public ComicBook fromFile(final File file) throws fileNotFound {
+	public ComicBook fromFile(final File file) throws fileNotFound, IOException {
 		ComicBook result = null;
 		if (file.exists()) {
 			result = new ComicBook(file);
-			if(result.getOriginalArchiving() == ArchiveTypes.RAR){
-				// add metadata
-				// number of pages
+			int numberOfPages = 0;
+			switch (result.getOriginalArchiving()) {
+			case ZIP:
+				ZipFile comic = new ZipFile(result.getFileSystempath());
+				final Enumeration<? extends ZipEntry> entries = comic.entries();
+				while (entries.hasMoreElements()) {
+					final ZipEntry entry = entries.nextElement();
+					if (entry.getName().contains(".jpg")) {
+						numberOfPages++;
+					}
+				}
+				result.setNumberOfPages(numberOfPages);
+				comic.close();
+				break;
+			default:
+				//TODO: Need to change the error
+				throw new fileNotFound("Cant unarchive the file");
 			}
 		} else {
 			throw new fileNotFound("Comic book does not exist");

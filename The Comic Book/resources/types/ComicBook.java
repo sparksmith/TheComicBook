@@ -27,7 +27,7 @@ public class ComicBook {
 
 	public ComicBook(File entry) {
 		this.fileSystemPath = entry.getAbsolutePath();
-		this.setFileSize((entry.length() / 1024) / 2014);
+		this.setFileSize((entry.length() / 1000) / 1000);
 		this.setFileType(entry.getName().split("\\.")[1]);
 		this.opened = false;
 		this.position = 0;
