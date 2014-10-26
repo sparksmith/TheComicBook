@@ -9,6 +9,6 @@ package openBook;
  * @date 26 Oct 2014
  *
  */
-public class ImageExtractingService {
-
+abstract public class ImageExtractingService {
+	public ArrayList<>
 }

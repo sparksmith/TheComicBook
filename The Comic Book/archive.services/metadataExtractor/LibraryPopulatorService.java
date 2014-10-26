@@ -23,7 +23,7 @@ import exceptions.fileNotFound;
  * @author Ivaylo Ivanchev
  *
  */
-public class LibraryPopulatorService {
+abstract public class LibraryPopulatorService {
 
 	public LibraryPopulatorService() {
 	}
@@ -42,7 +42,7 @@ public class LibraryPopulatorService {
 	 * @throws RarException
 	 *             the file can't be un-archived
 	 */
-	private ComicBook fromFile(final File file) throws fileNotFound, IOException, RarException {
+	private static ComicBook fromFile(final File file) throws fileNotFound, IOException, RarException {
 		ComicBook result = null;
 		if (file.exists()) {
 			result = new ComicBook(file);
@@ -88,7 +88,7 @@ public class LibraryPopulatorService {
 	 * @return a populated with information Comic Book
 	 * @throws IOException
 	 */
-	private ComicBook openZip(ComicBook result) throws IOException {
+	private static ComicBook openZip(ComicBook result) throws IOException {
 		int numberOfPages = 0;
 
 		ZipFile comic = new ZipFile(result.getFileSystempath());
@@ -114,7 +114,7 @@ public class LibraryPopulatorService {
 	 * @throws RarException
 	 * @throws IOException
 	 */
-	private ComicBook openRar(ComicBook result) throws RarException, IOException {
+	private static ComicBook openRar(ComicBook result) throws RarException, IOException {
 		int numberOfPages = 0;
 		Archive rar = new Archive(new File(result.getFileSystempath()));
 		FileHeader fileHeader = rar.nextFileHeader();
@@ -141,7 +141,7 @@ public class LibraryPopulatorService {
 	 * @throws IOException
 	 * @throws RarException
 	 */
-	public ComicBook getComicBook(final File path) throws fileNotFound, IOException, RarException {
+	public static ComicBook getComicBook(final File path) throws fileNotFound, IOException, RarException {
 		return fromFile(path);
 	}
 
