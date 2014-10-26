@@ -25,7 +25,7 @@ class Main {
 		OpenZip archiver = new OpenZip();
 		try {
 			ComicBook test = archiver.fromFile(new File("/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/"
-					+ "The Comic Book/testFiles/testComic2.cbz"));
+					+ "The Comic Book/testFiles/testComic1.cbr"));
 			System.out.println("The file: " + test.getFileName() + "\n" + "With size: " + test.getFileSize() + "MB\n" + "With filetype: "
 					+ test.getFileType() + "\n" + "With original archiving method: " + test.getOriginalArchiving() + "\n"
 					+ "With number of pages: " + test.getNumberOfPages());

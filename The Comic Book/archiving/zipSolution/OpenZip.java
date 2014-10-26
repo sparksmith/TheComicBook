@@ -4,7 +4,9 @@
 package zipSolution;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
@@ -12,6 +14,7 @@ import java.util.zip.ZipFile;
 
 import com.github.junrar.Archive;
 import com.github.junrar.exception.RarException;
+import com.github.junrar.rarfile.FileHeader;
 
 import types.ComicBook;
 import exceptions.fileNotFound;
@@ -27,6 +30,7 @@ public class OpenZip {
 			result = new ComicBook(file);
 			int numberOfPages = 0;
 			switch (result.getOriginalArchiving()) {
+			// ZIP
 			case ZIP:
 				ZipFile comic = new ZipFile(result.getFileSystempath());
 				final Enumeration<? extends ZipEntry> entries = comic.entries();
@@ -39,9 +43,20 @@ public class OpenZip {
 				result.setNumberOfPages(numberOfPages);
 				comic.close();
 				break;
+			// RAR
 			case RAR:
 				Archive rar = new Archive(new File(result.getFileSystempath()));
-				//rar.
+				FileHeader fileHeader = rar.nextFileHeader();
+				while (fileHeader != null) {
+					if (!fileHeader.isDirectory()) {
+						//name = fileHeader.getFileNameString();
+						if (fileHeader.getFileNameString().contains(".jpg")) {
+							numberOfPages++;
+						}
+					}
+					fileHeader = rar.nextFileHeader();
+				}
+				result.setNumberOfPages(numberOfPages);
 				break;
 			default:
 				//TODO: Need to change the error
