@@ -6,6 +6,8 @@ package start;
 import java.io.File;
 import java.io.IOException;
 
+import com.github.junrar.exception.RarException;
+
 import types.ComicBook;
 import zipSolution.OpenZip;
 import exceptions.fileNotFound;
@@ -27,7 +29,7 @@ class Main {
 			System.out.println("The file: " + test.getFileName() + "\n" + "With size: " + test.getFileSize() + "MB\n" + "With filetype: "
 					+ test.getFileType() + "\n" + "With original archiving method: " + test.getOriginalArchiving() + "\n"
 					+ "With number of pages: " + test.getNumberOfPages());
-		} catch (fileNotFound | IOException e) {
+		} catch (fileNotFound | IOException | RarException e) {
 			e.printStackTrace();
 		}
 	}

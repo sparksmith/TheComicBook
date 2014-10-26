@@ -6,5 +6,15 @@
 	<classpathentry kind="src" path="plugins"/>
 	<classpathentry kind="src" path="archive"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-logging-1.2/commons-logging-1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-logging-1.2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-vfs-2.0/commons-vfs2-2.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-vfs-2.0/commons-vfs2-2.0-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-vfs-2.0/commons-vfs2-2.0-test-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-vfs-2.0/commons-vfs2-2.0-tests.jar"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-vfs-2.0/commons-vfs2-2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-vfs-2.0/commons-vfs2-examples-2.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-vfs-2.0/commons-vfs2-examples-2.0-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/sparksmith/Documents/Programming/GITHUB/TheComicBook/The Comic Book/libraries/commons-vfs-2.0/commons-vfs2-examples-2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
