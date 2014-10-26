@@ -14,5 +14,6 @@ public class Metadata {
 	private String artists; 
 	private Date original_release; 
 	private Double version;
+	private String name;
 	// and many more
 }

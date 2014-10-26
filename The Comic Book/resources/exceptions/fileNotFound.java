@@ -11,9 +11,8 @@ public class fileNotFound extends Exception {
 	private static final long serialVersionUID = 4664456874499611218L;
 	private String errorCode = "Comic Book File not found !";
 
-	public fileNotFound(String message, String errorCode) {
+	public fileNotFound(String message) {
 		super(message);
-		this.errorCode = errorCode;
 	}
 
 	public String getErrorCode() {
