@@ -44,13 +44,11 @@ abstract public class LibraryPopulatorService {
 			switch (result.getOriginalArchiving()) {
 			// ZIP
 			case ZIP:
-				result = opener.openZip(result);
-				//TODO: extract more metadata information if there is a metadata.info file
+				result = opener.openZipAddMetadata(result);
 				break;
 			// RAR -> is a bit special because it is not in the JDK
 			case RAR:
-				result = opener.openRar(result);
-				//TODO: extract more metadata information if there is a metadata.info file
+				result = opener.openRarAddMetadata(result);
 				break;
 			case TAR:
 				//TODO: Do the tar

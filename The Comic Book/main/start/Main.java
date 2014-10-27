@@ -39,7 +39,7 @@ class Main {
 			System.out.println("The file: " + test.getFileName() + "\n" + "With size: " + test.getFileSize() + "MB\n" + "With filetype: "
 					+ test.getFileType() + "\n" + "With original archiving method: " + test.getOriginalArchiving() + "\n"
 					+ "With number of pages: " + test.getNumberOfPages());
-			ArrayList<BufferedImage> t2 = ImageExtractingService.getImages(test, path, numberOfPages, Destination.RAM);
+			ArrayList<BufferedImage> t2 = ImageExtractingService.getImages(test, path, 22,33, Destination.RAM);
 			System.out.println("Size: " + t2.size());
 			testing.start(t2.get(3));
 		} catch (fileNotFound | IOException | RarException e) {

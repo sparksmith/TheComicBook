@@ -27,12 +27,12 @@ abstract public class ImageExtractingService {
 		RAM, HDD
 	}
 
-	public static ArrayList<BufferedImage> getImages(ComicBook comic, File path, Integer numberOfPages, Destination d) throws fileNotFound,
-			IOException {
+	public static ArrayList<BufferedImage> getImages(ComicBook comic, File path, Integer startPage, Integer endPage, Destination d)
+			throws fileNotFound, IOException {
 		switch (comic.getOriginalArchiving()) {
 		case ZIP:
 			if (d == d.RAM) {
-				return fromZipInMemory(comic, numberOfPages);
+				return fromZipInMemory(comic, startPage, endPage);
 			} else if (d == d.HDD) {
 				//TODO: Extract the data to PATH folder and use the images from there
 				return fromZipInHardDisk(comic, path);
@@ -55,19 +55,21 @@ abstract public class ImageExtractingService {
 		return null;
 	}
 
-	private static ArrayList<BufferedImage> fromZipInMemory(ComicBook comic, Integer numberOfPages) throws IOException {
+	private static ArrayList<BufferedImage> fromZipInMemory(ComicBook comic, Integer startPage, Integer endPage) throws IOException {
 		ArrayList<BufferedImage> result = new ArrayList<BufferedImage>();
 
 		ZipFile zip = new ZipFile(comic.getFileSystempath());
 		final Enumeration<? extends ZipEntry> entries = zip.entries();
-		System.out.println("Extraction starting");
-		while (entries.hasMoreElements() && numberOfPages > 0) {
+
+		int currentEntry = 0;
+		while (entries.hasMoreElements()) {
 			final ZipEntry entry = entries.nextElement();
-			if (entry.getName().contains(".jpg")) {
+			if (entry.getName().contains(".jpg") && (currentEntry >= startPage && currentEntry <= endPage)) {
 				result.add(ImageIO.read(zip.getInputStream(entry)));
+			} else if (currentEntry > endPage) {
+				break;
 			}
-			System.out.println("N: " + numberOfPages);
-			numberOfPages--;
+			currentEntry++;
 		}
 		zip.close();
 		return result;

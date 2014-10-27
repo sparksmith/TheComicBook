@@ -21,7 +21,7 @@ import com.github.junrar.rarfile.FileHeader;
  * @date 26 Oct 2014
  *
  */
-public class ArchiveSpecificFunctionality implements ArchiveOpener{
+public class ArchiveSpecificFunctionality implements ArchiveOpener {
 	/**
 	 * Extract information regarding the CBZ format
 	 * 
@@ -31,7 +31,7 @@ public class ArchiveSpecificFunctionality implements ArchiveOpener{
 	 * @return a populated with information Comic Book
 	 * @throws IOException
 	 */
-	public ComicBook openZip(ComicBook result) throws IOException {
+	public ComicBook openZipAddMetadata(ComicBook result) throws IOException {
 		int numberOfPages = 0;
 
 		ZipFile comic = new ZipFile(result.getFileSystempath());
@@ -42,6 +42,7 @@ public class ArchiveSpecificFunctionality implements ArchiveOpener{
 				numberOfPages++;
 			}
 		}
+		//TODO: Add metadata from file
 		result.setNumberOfPages(numberOfPages);
 		comic.close();
 		return result;
@@ -57,7 +58,7 @@ public class ArchiveSpecificFunctionality implements ArchiveOpener{
 	 * @throws RarException
 	 * @throws IOException
 	 */
-	public ComicBook openRar(ComicBook result) throws RarException, IOException {
+	public ComicBook openRarAddMetadata(ComicBook result) throws RarException, IOException {
 		int numberOfPages = 0;
 		Archive rar = new Archive(new File(result.getFileSystempath()));
 		FileHeader fileHeader = rar.nextFileHeader();
@@ -71,24 +72,25 @@ public class ArchiveSpecificFunctionality implements ArchiveOpener{
 			fileHeader = rar.nextFileHeader();
 		}
 		result.setNumberOfPages(numberOfPages);
+		//TODO: Add more metadata from file if there is one
 		rar.close();
 		return result;
 	}
 
 	@Override
-	public ComicBook open7z(ComicBook result) {
+	public ComicBook open7zAddMetadata(ComicBook result) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ComicBook openTar(ComicBook result) {
+	public ComicBook openTarAddMetadata(ComicBook result) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ComicBook openAce(ComicBook result) {
+	public ComicBook openAceAddMetadata(ComicBook result) {
 		// TODO Auto-generated method stub
 		return null;
 	}
