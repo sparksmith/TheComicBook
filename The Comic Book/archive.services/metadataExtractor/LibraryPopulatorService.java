@@ -12,6 +12,7 @@ import types.ComicBook;
 import com.github.junrar.exception.RarException;
 
 import exceptions.fileNotFound;
+import functionality.MetadataGatherer;
 
 /**
  * @author Ivaylo Ivanchev
@@ -37,7 +38,7 @@ abstract public class LibraryPopulatorService {
 	 *             the file can't be un-archived
 	 */
 	private static ComicBook fromFile(final File file) throws fileNotFound, IOException, RarException {
-		ArchiveSpecificFunctionality opener = new ArchiveSpecificFunctionality();
+		MetadataGatherer opener = new MetadataGatherer();
 		ComicBook result = null;
 		if (file.exists()) {
 			result = new ComicBook(file);

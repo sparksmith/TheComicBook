@@ -1,7 +1,7 @@
 /**
  * 
  */
-package metadataExtractor;
+package functionality;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import com.github.junrar.rarfile.FileHeader;
  * @date 26 Oct 2014
  *
  */
-public class ArchiveSpecificFunctionality implements ArchiveOpener {
+public class MetadataGatherer implements ArchiveMetadataExtractor {
 	/**
 	 * Extract information regarding the CBZ format
 	 * 

@@ -14,7 +14,9 @@ import java.util.zip.ZipFile;
 import javax.imageio.ImageIO;
 
 import exceptions.fileNotFound;
+import functionality.ImageGatherer;
 import types.ComicBook;
+import types.Enumeration.Destination;
 
 /**
  * @author Ivaylo Ivanchev
@@ -23,19 +25,17 @@ import types.ComicBook;
  *
  */
 abstract public class ImageExtractingService {
-	public enum Destination {
-		RAM, HDD
-	}
-
 	public static ArrayList<BufferedImage> getImages(ComicBook comic, File path, Integer startPage, Integer endPage, Destination d)
 			throws fileNotFound, IOException {
+
+		ImageGatherer gatherer = new ImageGatherer();
 		switch (comic.getOriginalArchiving()) {
 		case ZIP:
 			if (d == d.RAM) {
-				return fromZipInMemory(comic, startPage, endPage);
+				return gatherer.fromZipInMemory(comic, startPage, endPage);
 			} else if (d == d.HDD) {
 				//TODO: Extract the data to PATH folder and use the images from there
-				return fromZipInHardDisk(comic, path);
+				return gatherer.fromZipInHDD(comic, path);
 			}
 		case RAR:
 			//TODO: Create the array for rar files
@@ -54,29 +54,4 @@ abstract public class ImageExtractingService {
 		}
 		return null;
 	}
-
-	private static ArrayList<BufferedImage> fromZipInMemory(ComicBook comic, Integer startPage, Integer endPage) throws IOException {
-		ArrayList<BufferedImage> result = new ArrayList<BufferedImage>();
-
-		ZipFile zip = new ZipFile(comic.getFileSystempath());
-		final Enumeration<? extends ZipEntry> entries = zip.entries();
-
-		int currentEntry = 0;
-		while (entries.hasMoreElements()) {
-			final ZipEntry entry = entries.nextElement();
-			if (entry.getName().contains(".jpg") && (currentEntry >= startPage && currentEntry <= endPage)) {
-				result.add(ImageIO.read(zip.getInputStream(entry)));
-			} else if (currentEntry > endPage) {
-				break;
-			}
-			currentEntry++;
-		}
-		zip.close();
-		return result;
-	}
-
-	private static ArrayList<BufferedImage> fromZipInHardDisk(ComicBook comic, File path) throws IOException {
-		return null;
-	}
-
 }

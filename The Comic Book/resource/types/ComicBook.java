@@ -5,15 +5,13 @@ package types;
 
 import java.io.File;
 
+import types.Enumeration.ArchiveTypes;
+
 /**
  * @author Ivaylo Ivanchev
  *
  */
 public class ComicBook {
-	public enum ArchiveTypes {
-		ZIP, RAR, TAR, ACE, SEVENz
-	}
-
 	private Metadata metadata; // this will definately change in time
 	private Integer numberOfPages;
 	private String fileSystemPath;
