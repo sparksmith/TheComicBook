@@ -8,16 +8,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import openBook.ImageExtractingService;
 import metadataExtractor.LibraryPopulatorService;
-
-import com.github.junrar.exception.RarException;
-
+import openBook.ImageExtractingService;
 import testing.DeleteMe;
 import types.ComicBook;
 import types.Enumeration.Destination;
+
+import com.github.junrar.exception.RarException;
+
 import exceptions.fileNotFound;
-import functionality.MetadataGatherer;
 
 /**
  * @author Ivaylo Ivanchev

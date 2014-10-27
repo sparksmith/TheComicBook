@@ -7,16 +7,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
-import javax.imageio.ImageIO;
-
-import exceptions.fileNotFound;
-import functionality.ImageGatherer;
 import types.ComicBook;
 import types.Enumeration.Destination;
+import exceptions.fileNotFound;
+import functionality.ImageGatherer;
 
 /**
  * @author Ivaylo Ivanchev
@@ -31,12 +26,7 @@ abstract public class ImageExtractingService {
 		ImageGatherer gatherer = new ImageGatherer();
 		switch (comic.getOriginalArchiving()) {
 		case ZIP:
-			if (d == d.RAM) {
-				return gatherer.fromZipInMemory(comic, startPage, endPage);
-			} else if (d == d.HDD) {
-				//TODO: Extract the data to PATH folder and use the images from there
-				return gatherer.fromZipInHDD(comic, path);
-			}
+			return (d == Destination.RAM) ? gatherer.fromZipInMemory(comic, startPage, endPage) : gatherer.fromZipInHDD(comic, path);
 		case RAR:
 			//TODO: Create the array for rar files
 			break;
